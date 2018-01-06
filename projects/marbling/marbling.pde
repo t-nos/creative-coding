@@ -2,6 +2,7 @@ float noiseX, noiseY;
 CircleEdge circleEdge;
 boolean DEBUG = true;
 void setup(){
+    // System.setProperty("apple.awt.graphics.UseQuartz","false");
     if(DEBUG){
         try {
             testMethod();
@@ -13,23 +14,22 @@ void setup(){
 
     noiseX = random(10000);
     noiseY = random(10000);
-    size(300,300);
+    size(500,500);
     noStroke();
     smooth();
     colorMode(HSB, 1); // http://tomari.org/main/java/color/hsb.html
-    circleEdge = new CircleEdge(150, 150, 150);
+    circleEdge = new CircleEdge(width/2, height/2, width/2);
 }
 
 void draw(){
     float radius = 2;
     float d = radius*2;
-    float step = 1;
+    float step = d;
     //   float step = radius;
     background(0);
     for(int x = 0; x < width; x+=step){
         for(int y = 0; y < height; y+=step){
             if(circleEdge.isHover(x, y)){
-
                 float n = noise(x * 0.003 + noiseX, y * 0.003 + noiseY, frameCount * 0.004);
                 float v = int(n*200);
                 if(v%2 == 0 || v%3==0 || v%5==0){
