@@ -31,12 +31,16 @@ void setup(){
 
 void draw(){
     background(0);
+
+    fill(color(1,0.4,0.4), 1.0);
+    ellipse(width/2, height/2, width, width);
+
     marbleCircle.draw();
     marbleCircle.setBaseHue(sin(radians(_n)));
 
     marbleRect.draw();
     marbleRect.setBaseHue(cos(radians(_n*2)));
-
+    
     _n++;
 }
 
