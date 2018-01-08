@@ -1,5 +1,5 @@
-float noiseX, noiseY;
-Marble marble;
+Marble marbleCircle;
+Marble marbleRect;
 boolean DEBUG = true;
 int _n = 0;
 void setup(){
@@ -12,26 +12,31 @@ void setup(){
         System.exit(0);
         }
     }
-
-    noiseX = random(10000);
-    noiseY = random(10000);
     size(500,500);
     noStroke();
     smooth();
     colorMode(HSB, 1); // http://tomari.org/main/java/color/hsb.html
 
-    MarbleShape shape = new CircleShape(width/2, height/2, width/2);
-    // MarbleShape shape = new RectShape(100, 100, 300, 300);
+    MarbleShape shapeCircle = new CircleShape(width/2, height/2, width/2);
+    MarbleShape shapeRect = new RectShape(100, 100, 300, 300);
     int dotSize = 4;
     int dotMargin = dotSize;
-    marble = new Marble(width, height, dotSize, dotMargin, shape);
+    marbleCircle = new Marble(width, height, dotSize, dotMargin, shapeCircle);
+    marbleRect = new Marble(width, height, dotSize, dotMargin, shapeRect);
+    marbleRect.setAlpha(0.75);
+    marbleRect.setNoiseX(marbleCircle.noiseX);
+    marbleRect.setNoiseY(marbleCircle.noiseY);
     // marble.setBaseHue(0.25);
 }
 
 void draw(){
     background(0);
-    marble.draw();
-    marble.setBaseHue(sin(radians(_n)));
+    marbleCircle.draw();
+    marbleCircle.setBaseHue(sin(radians(_n)));
+
+    marbleRect.draw();
+    marbleRect.setBaseHue(cos(radians(_n*2)));
+
     _n++;
 }
 

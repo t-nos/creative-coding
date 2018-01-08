@@ -3,8 +3,10 @@ class Marble {
     int dotSize = 4;
     int dotMargin = 4;
     float baseHue = 0.83;
+    float alpha = 1;
     MarbleShape shape = null;
-
+    float noiseX = random(10000); 
+    float noiseY = random(10000);
     Marble(int width, int height, int dotSize, int dotMargin){
         this.width = width;
         this.height = height;
@@ -25,6 +27,17 @@ class Marble {
         this.baseHue = h;
     }
 
+    void setAlpha(float alpha){
+        this.alpha = alpha;
+    }
+
+    void setNoiseX(float noiseX){
+        this.noiseX = noiseX;
+    }
+    void setNoiseY(float noiseY){
+        this.noiseY = noiseY;
+    }
+
     float getBaseHue(){
         return this.baseHue;
     }
@@ -35,7 +48,7 @@ class Marble {
                 if(this.shape == null || !this.shape.isHover(x, y)){
                     continue;
                 }
-                float n = noise(x * 0.003 + noiseX, y * 0.003 + noiseY, frameCount * 0.004);
+                float n = noise(x * 0.003 + this.noiseX, y * 0.003 + this.noiseY, frameCount * 0.004);
 
                 this.drawDot(x, y, n);
             }
@@ -55,7 +68,7 @@ class Marble {
             }else{
                 c = color(this.baseHue, 0.9, 0.01);
             }
-            fill(c);
+            fill(c, this.alpha);
             this.drawDot(x, y);
         }
     }
