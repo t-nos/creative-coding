@@ -6,12 +6,16 @@ class Mover {
     PVector velocity;
     PVector acceleration;
     float topSpeed;
+    color _color;
 
     Mover(float x, float y){
         this.location = new PVector(x, y);
         this.velocity = new PVector(0, 0);
         this.topSpeed = 10;
         this.acceleration = new PVector(0.001, 0.01);
+
+        float baseHue = random(0, 1);
+        this._color = color(baseHue, 0.5, 0.8);
     }
 
     void update(){
@@ -25,8 +29,8 @@ class Mover {
     }
 
     void display(){
-        stroke(0);
-        fill(175);
+        stroke(this._color);
+        fill(this._color);
         ellipse(this.location.x, this.location.y, 16, 16);
     }
 
@@ -47,14 +51,14 @@ class Mover {
         dir.mult(0.5);
         this.acceleration = dir;
 
-        // if(this.location.x < 0 || width < this.location.x){
-        //     this.acceleration.x *= -1;
-        //     this.velocity.x *= -1;
-        // }
-        // if(this.location.y < 0 || height < this.location.y){
-        //     this.acceleration.y *= -1;
-        //     this.velocity.y *= -1;
-        // }
+        if(this.location.x < 0 || width < this.location.x){
+            this.acceleration.x *= -1;
+            this.velocity.x *= -1;
+        }
+        if(this.location.y < 0 || height < this.location.y){
+            this.acceleration.y *= -1;
+            this.velocity.y *= -1;
+        }
 
     }
 
@@ -62,6 +66,8 @@ class Mover {
 
 List<Mover> moverList;
 void setup(){
+    colorMode(HSB, 1); // http://tomari.org/main/java/color/hsb.html
+
     moverList = new ArrayList();
     size(640, 360);
     for(int i=0; i<20; i++){
@@ -70,7 +76,7 @@ void setup(){
 }
 
 void draw(){
-    background(255);
+    background(color(1, 0, 1));
     for(Mover m : moverList){
         m.update();
         m.display();
