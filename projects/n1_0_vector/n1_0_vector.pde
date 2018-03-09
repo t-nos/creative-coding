@@ -51,15 +51,40 @@ class Mover {
         dir.mult(0.5);
         this.acceleration = dir;
 
-        if(this.location.x < 0 || width < this.location.x){
+        // if(this.location.x < 0 || width < this.location.x){
+        //     this.acceleration.x *= -1;
+        //     this.velocity.x *= -1;
+        // }
+        // if(this.location.y < 0 || height < this.location.y){
+        //     this.acceleration.y *= -1;
+        //     this.velocity.y *= -1;
+        // }
+
+        boolean reflectX = false;
+        if(this.location.x <= 0){
+            this.location.x = 0;
+            reflectX = true;
+        }else if(width <= this.location.x){
+            this.location.x = width;
+            reflectX = true;
+        }
+        if(reflectX){
             this.acceleration.x *= -1;
             this.velocity.x *= -1;
         }
-        if(this.location.y < 0 || height < this.location.y){
+
+        boolean reflectY = false;
+        if(this.location.y <= 0){
+            this.location.y = 0;
+            reflectY = true;
+        }else if(height <= this.location.y){
+            this.location.y = height;
+            reflectY = true;
+        }
+        if(reflectY){
             this.acceleration.y *= -1;
             this.velocity.y *= -1;
         }
-
     }
 
 }
