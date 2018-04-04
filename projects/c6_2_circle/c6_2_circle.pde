@@ -69,6 +69,26 @@ class Circle {
         if(this.y < (0-radius)){
             this.y = height + this.radius;
         }
+
+        boolean touching = false;
+        for(Circle c : circleList){
+            if(c != this){
+                float distance = dist(this.x, this.y, c.x, c.y);
+                if(distance - this.radius - c.radius < 0){
+                    touching = true;
+                    break;
+                }
+            }
+        }
+        if(touching){
+            if(this.alpha > 0){
+                this.alpha--;
+            }
+        }else {
+            if(this.alpha < 255){
+                this.alpha += 2;
+            }
+        }
     }
 
     void draw(){
