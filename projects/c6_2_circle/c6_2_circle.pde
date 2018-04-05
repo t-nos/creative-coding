@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 int circleNum = 10;
-final int maxCircleNum = 150;
+final int maxCircleNum = 100;
 List<Circle> circleList;
 
 void setup(){
@@ -74,10 +74,20 @@ class Circle {
         for(Circle c : circleList){
             if(c != this){
                 float distance = dist(this.x, this.y, c.x, c.y);
-                if(distance - this.radius - c.radius < 0){
+                float overlap = distance - this.radius - c.radius;
+                if(overlap < 0){
+                    float midX = (this.x + c.x)/2;
+                    float midY = (this.y + c.y)/2;
+
+                    stroke(0, 100);
+                    noFill();
+                    overlap *= -1;
+                    ellipse(midX, midY, overlap, overlap);
+
                     touching = true;
                     break;
                 }
+                this.draw();
             }
         }
         if(touching){
