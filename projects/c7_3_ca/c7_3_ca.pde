@@ -129,7 +129,6 @@ class Cell{
         fill(c, random(25));
         stroke(c, random(100));
         float size = this.getLiveCount();
-        // ellipse(this.x, this.y, size*10, size*10);
 
         float x = this.x;
         float y = this.y;
@@ -141,6 +140,11 @@ class Cell{
             y -= this.age;
         }
         // line(this.x, this.y, x+random(-5, 5), y+random(-5, 5));
-        triangle(this.x-this.age, this.y+this.age, this.x+this.age/2, this.y+this.age, this.x-this.age, this.y-this.age);
+        // triangle(this.x-this.age, this.y+this.age, this.x+this.age/2, this.y+this.age, this.x-this.age, this.y-this.age);
+        float r = size*20;
+        ellipse(this.x, this.y, r, r);
+        line(this.x, this.y, this.x+sin(this.age)*r/2, this.y+cos(this.age)*r/2);
+        line(this.x, this.y, this.x+sin(this.age*size)*r/2, this.y+cos(this.age*size)*r/2);
+        line(this.x, this.y, this.x+sin(this.age*size*2)*r/2, this.y+cos(this.age*size*2)*r/2);
     }
 }
