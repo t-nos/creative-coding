@@ -5,7 +5,7 @@ import java.util.ArrayList;
 Cell[][] cellArray;
 int NUM_X;
 int NUM_Y;
-final int CELL_SIZE = 10;
+final int CELL_SIZE = 5;
 
 void setup(){
     size(500,300);
@@ -80,14 +80,15 @@ class Cell {
     color blankCol;
 
     protected float x, y;
-    protected int state;
-    protected int nextState;
+    protected float state;
+    protected float nextState;
+    protected float lastState = 0;
     List<Cell> neighbours;
 
     Cell(float ex, float why){
         this.x = ex * CELL_SIZE;
         this.y = why * CELL_SIZE;
-        this.nextState = int(random(2));
+        this.nextState = ((x/500)+(y/300))*14;
         this.state = nextState;
         this.neighbours = new ArrayList();
         this.fillCol = color(random(255), random(255), random(255));
@@ -102,9 +103,7 @@ class Cell {
     protected int getLiveCount(){
         int n = 0;
         for(Cell c : this.neighbours){
-            if(c.state == 1){
-                n++;
-            }
+            n += c.state;
         }
         return n;
     }
@@ -112,33 +111,33 @@ class Cell {
     void draw(){
         this.state = this.nextState;
         stroke(0);
-        int c = 255;
-        switch(this.state){
-            case 1:
-                c = 0;
-                break;
-            case 2:
-                c = 150;
-                break;
-        }
-        fill(c);
+        fill(this.state);
         ellipse(this.x, this.y, CELL_SIZE, CELL_SIZE);
     }
 
     void calcNextState(){
-        switch(this.state){
+        int mean = int(this.getLiveCount()/8);
+
+        switch(mean){
             case 0:
-                this.nextState = this.getLiveCount() == 2 ? 1 : this.state;
+                this.nextState = 255;
                 break;
-            case 1:
-                this.nextState = 2;
-                break;
-            case 2:
+            case 255:
                 this.nextState = 0;
                 break;
             default:
-                // do nothing
+                this.nextState = this.state + mean;
+                if(this.lastState > 0){
+                    this.nextState -= this.lastState;
+                }
+                if(this.nextState > 255){
+                    this.nextState = 255;
+                }else if (this.nextState < 0){
+                    this.nextState = 0;
+                }
+                break;
         }
+        this.lastState = this.state;
     }
 
 }
