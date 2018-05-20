@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 int NUM_CHILDREN = 4;
-int MAX_LEVELS = 5;
+int MAX_LEVELS = 6;
 
 Branch trunk;
 
@@ -20,6 +20,10 @@ void draw(){
     trunk.draw();
 }
 
+void mousePressed(){
+    newTree();
+}
+
 void newTree(){
     trunk = new Branch(1, 0, width/2, height/2);
     trunk.draw();
@@ -32,7 +36,7 @@ class Branch {
     List<Branch> children = new ArrayList();
 
     float strokeW, alpha;
-    float length, lenChange;
+    float length, lenChange, maxLength;
     float rotation, rotChange;
 
     Branch(float level, float index, float x, float y){
@@ -40,8 +44,10 @@ class Branch {
         this.index = index;
 
         this.strokeW = (1/this.level)*10;
+        // this.strokeW = (1/this.level)*40;
         this.alpha = 255/this.level;
-        this.length = (1/this.level)*random(500);
+        this.maxLength = 200;
+        this.length = (1/this.level)*random(this.maxLength);
         this.rotation = random(360);
         this.lenChange = random(10)-5;
         this.rotChange = random(10)-5;
@@ -68,7 +74,7 @@ class Branch {
         this.length -= this.lenChange;
         if(this.length<0){
             this.lenChange *= -1;
-        }else if(this.length > 500){
+        }else if(this.length > this.maxLength){
             this.lenChange *= -1;
         }
 

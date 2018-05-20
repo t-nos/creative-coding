@@ -5,7 +5,7 @@ import java.util.ArrayList;
 Cell[][] cellArray;
 int NUM_X;
 int NUM_Y;
-final int CELL_SIZE = 5;
+final int CELL_SIZE = 3;
 
 void setup(){
     size(500,300);
@@ -110,7 +110,7 @@ class Cell {
 
     void draw(){
         this.state = this.nextState;
-        color c = color(this.state, 40, 50, 200);
+        color c = color(100+this.state/2, 40, 80+(this.state)/4, 200);
         stroke(c);
         // fill(this.state);
         fill(c);

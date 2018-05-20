@@ -17,10 +17,10 @@ void setup(){
 
 void restart(){
 
-    cellArray = new GameOfLife[NUM_X][NUM_Y];
+    cellArray = new VishniacVote[NUM_X][NUM_Y];
     for(int x=0; x<NUM_X; x++){
         for(int y=0; y<NUM_Y; y++){
-            cellArray[x][y] = new GameOfLife(x, y);
+            cellArray[x][y] = new VishniacVote(x, y);
         }
     }
 

@@ -58,7 +58,7 @@ class Boid {
   float maxforce;    // Maximum steering force
   float maxspeed;    // Maximum speed
 
-    Boid(float x, float y) {
+  Boid(float x, float y) {
     acceleration = new PVector(0, 0);
 
     // This is a new PVector method not yet implemented in JS
@@ -220,8 +220,7 @@ class Boid {
       PVector steer = PVector.sub(sum, velocity);
       steer.limit(maxforce);
       return steer;
-    } 
-    else {
+    } else {
       return new PVector(0, 0);
     }
   }
@@ -242,8 +241,7 @@ class Boid {
     if (count > 0) {
       sum.div(count);
       return seek(sum);  // Steer towards the position
-    } 
-    else {
+    } else {
       return new PVector(0, 0);
     }
   }

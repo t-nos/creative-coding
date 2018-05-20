@@ -86,15 +86,22 @@ void setup(){
 
 void draw(){
     background(color(1, 0, 1));
-    PVector wind = new PVector(0.01, 0);
+    // PVector wind = new PVector(0.01, 0);
+    PVector wind = new PVector(0.1, 0);
     for(Mover m : moverList){
 
-        // if(mousePressed){
-        //     m.applyForce(wind);
-        //     m.applyForce(gravity);
-        // }
-        PVector gravity = new PVector(0, 0.1*m.mass);
-        m.applyForce(wind);
+        if(mousePressed){
+            m.applyForce(wind);
+        }
+        float c = 0.01;
+        PVector friction = m.velocity.get();
+        friction.mult(-1);
+        friction.normalize();
+        friction.mult(c);
+
+        PVector gravity = new PVector(0, 0.2*m.mass);
+        // m.applyForce(wind);
+        m.applyForce(friction);
         m.applyForce(gravity);
         m.update();
         m.display();

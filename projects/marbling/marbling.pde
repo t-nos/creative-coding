@@ -18,7 +18,9 @@ void setup(){
     colorMode(HSB, 1); // http://tomari.org/main/java/color/hsb.html
 
     MarbleShape shapeCircle = new CircleShape(width/2, height/2, width/2);
-    MarbleShape shapeRect = new RectShape(100, 100, 300, 300);
+//    MarbleShape shapeRect = new CircleShape(width/2, height/2, width/4);
+    // MarbleShape shapeRect = new RectShape(100, 100, 300, 300);
+    MarbleShape shapeRect = new RectShape(150, 150, 200, 200);
     int dotSize = 4;
     int dotMargin = dotSize;
     marbleCircle = new Marble(width, height, dotSize, dotMargin, shapeCircle);
